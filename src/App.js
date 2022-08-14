@@ -1,24 +1,43 @@
-import logo from './logo.svg';
-import './App.css';
+import React,{ useEffect, useState } from 'react';
+import { Routes, Route } from 'react-router-dom';
+import Header from './Header/Header';
+import Login from './components/login/Login';
+import Home from './components/Home/Home'
+import Post from './components/Post';
+import Register from './components/registr/Register';
+import Error from './components/Error';
+
+
+
 
 function App() {
+
+  const [api,setApi]=useState([]);
+
+   const apiAddHandler = (item) =>{
+    setApi(item);
+   }
+
+   const addInfo=(item)=>{
+    setApi([...api, item])
+   }
+    
+   
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+    
+    <Header />
+
+    <Routes>
+     <Route path='/' element={<Login apiAddHandler={apiAddHandler} api={api} />}></Route>
+     <Route path='/home' element={<Home />}></Route>
+     <Route path='/post/:id' element={<Post />}></Route>
+     <Route path='/registr' element={<Register addInfo={addInfo} api={api} />}></Route>
+     <Route path='*' element={<Error />}></Route>
+    </Routes>
+
+    </>
   );
 }
 
