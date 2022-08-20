@@ -4,7 +4,7 @@ import Header from './Header/Header';
 import Login from './components/login/Login';
 import Home from './components/Home/Home'
 import Post from './components/Post';
-import Register from './components/registr/Register';
+
 import Error from './components/Error';
 
 
@@ -18,10 +18,12 @@ function App() {
     setApi(item);
    }
 
-   const addInfo=(item)=>{
-    setApi([...api, item])
-   }
+  
     
+   useEffect(()=>{
+      localStorage.setItem('add', JSON.stringify(api))
+   },[api])
+  
    
 
   return (
@@ -33,7 +35,7 @@ function App() {
      <Route path='/' element={<Login apiAddHandler={apiAddHandler} api={api} />}></Route>
      <Route path='/home' element={<Home />}></Route>
      <Route path='/post/:id' element={<Post />}></Route>
-     <Route path='/registr' element={<Register addInfo={addInfo} api={api} />}></Route>
+   
      <Route path='*' element={<Error />}></Route>
     </Routes>
 

@@ -5,9 +5,11 @@ import { useNavigate, Link } from 'react-router-dom';
 
 const Login = ({apiAddHandler,api}) => {
 
+
   const [email, setEmail]=useState('');
   const [password,setPassword]=useState('');
 
+  const [error,setError]=useState();
   
 
   const usernav=useNavigate();
@@ -43,6 +45,7 @@ const Login = ({apiAddHandler,api}) => {
         localStorage.setItem('auth', true);
         usernav('/home')
       } else{
+        setError(<p>please write correct email or password</p>)
         return;
       }
     })
@@ -65,7 +68,7 @@ const Login = ({apiAddHandler,api}) => {
             <label htmlFor="password">Password</label>
             <input type="password" id='password' onChange={passwordChangehandler} />
           </div>
-            <Link to='/registr'>Registration</Link>
+           {error}
           <div className='button'>
             <button type='submit'>LOG IN</button>
           </div>
@@ -107,7 +110,10 @@ const Section = styled.section`
       display: flex;
       flex-direction: column;
       line-height: 2.2rem;
-      
+      p{
+        font-size: 12px;
+        color: red;
+      }
       
       .Username,.password{
         display: flex;
